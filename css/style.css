@@ -1,0 +1,151 @@
+:root {
+    --bg-primary: #0f172a;
+    --bg-sidebar: #1e293b;
+    --accent-color: #0ea5e9;
+    --accent-success: #10b981;
+    --accent-danger: #ef4444;
+    --accent-warning: #f59e0b;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --radius-lg: 16px;
+    --radius-md: 10px;
+    --transition-fast: 0.25s ease;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    overflow: hidden;
+    height: 100vh;
+}
+
+.app-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Sidebar Dashboard Layout */
+.sidebar {
+    width: 380px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid #334155;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+    z-index: 10;
+    box-shadow: 4px 0 24px rgba(0,0,0,0.3);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #334155;
+}
+
+.logo-icon { font-size: 2rem; }
+.brand-text h1 { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.5px; }
+.brand-text span { font-size: 0.75rem; color: var(--accent-color); text-transform: uppercase; font-weight: 600; }
+
+.control-card, .monitor-card, .feedback-card {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid #334155;
+    padding: 16px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+h3 {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+label { font-size: 0.85rem; color: var(--text-muted); }
+
+select {
+    background-color: #0f172a;
+    border: 1px solid #475569;
+    color: var(--text-main);
+    padding: 10px 12px;
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    outline: none;
+    cursor: pointer;
+}
+
+.btn {
+    padding: 12px;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+.btn-primary { background-color: var(--accent-color); color: white; }
+.btn-primary:hover { background-color: #0284c7; }
+.btn-danger { background-color: var(--accent-danger); color: white; }
+.btn-danger:hover { background-color: #dc2626; }
+.btn-secondary { background-color: #475569; color: white; }
+
+/* Grid Status */
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.stat-box { background: #0f172a; border: 1px solid #334155; padding: 12px; border-radius: var(--radius-md); text-align: center; }
+.stat-box.accent { border-color: var(--accent-success); background: rgba(16, 185, 129, 0.05); }
+.stat-label { display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px; }
+.stat-value { font-size: 1.8rem; font-weight: 700; }
+.stat-box.accent .stat-value { color: var(--accent-success); }
+
+/* Badges Gerakan Shalat */
+.badge-state { padding: 10px; border-radius: var(--radius-md); text-align: center; font-weight: 700; font-size: 1rem; }
+.state-idle { background: #475569; color: white; }
+.state-berdiri { background: rgba(14, 165, 233, 0.2); color: var(--accent-color); border: 1px solid var(--accent-color); }
+.state-ruku { background: rgba(245, 158, 11, 0.2); color: var(--accent-warning); border: 1px solid var(--accent-warning); }
+.state-sujud { background: rgba(16, 185, 129, 0.2); color: var(--accent-success); border: 1px solid var(--accent-success); }
+.state-duduk { background: rgba(167, 139, 250, 0.2); color: #a78bfa; border: 1px solid #a78bfa; }
+
+/* Tumakninah Progress Bar */
+.meter-label { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); }
+.meter-bar { width: 100%; height: 8px; background: #334155; border-radius: 4px; overflow: hidden; }
+.meter-fill { width: 0%; height: 100%; background: var(--accent-success); transition: width 0.1s linear; }
+
+/* Kotak Panduan */
+.feedback-box { background: #0f172a; border-left: 4px solid var(--accent-color); padding: 12px; border-radius: 0 var(--radius-md) var(--radius-md) 0; font-size: 0.9rem; line-height: 1.5; min-height: 60px; }
+.feedback-box.correct { border-left-color: var(--accent-success); color: #a7f3d0; }
+.feedback-box.waiting { border-left-color: var(--accent-warning); color: #fde68a; }
+
+/* Komponen Utama Tampilan Kamera */
+.main-content { flex: 1; position: relative; background-color: #020617; display: flex; justify-content: center; align-items: center; padding: 20px; }
+.video-wrapper { position: relative; width: 100%; max-width: 840px; aspect-ratio: 4/3; background: #000; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid #1e293b; }
+#webcam, #output_canvas { position: absolute; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+#output_canvas { z-index: 2; }
+.video-overlay-top { position: absolute; top: 16px; left: 16px; right: 16px; display: flex; justify-content: space-between; z-index: 5; }
+.overlay-badge { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px); padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.85rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.1); }
+
+/* Animasi Spinner Loading & Modal Rapor */
+.loading-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.95); z-index: 20; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; }
+.spinner { width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.1); border-left-color: var(--accent-color); border-radius: 50%; animation: spin 1s infinite linear; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); z-index: 30; display: flex; justify-content: center; align-items: center; }
+.modal-content { background: var(--bg-sidebar); border: 1px solid #475569; padding: 32px; border-radius: var(--radius-lg); width: 90%; max-width: 480px; display: flex; flex-direction: column; gap: 20px; }
+.report-summary p { margin-bottom: 8px; }
+.report-summary ul { padding-left: 20px; color: var(--text-muted); }
+.hidden { display: none !important; }
