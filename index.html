@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Shalat Assistant - Tracker</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="sidebar">
+            <div class="brand">
+                <div class="logo-icon">🕋</div>
+                <div class="brand-text">
+                    <h1>ShalatAI</h1>
+                    <span>Motion Tracker</span>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h3>⚙️ Pengaturan Ibadah</h3>
+                <div class="form-group">
+                    <label for="shalat-select">Pilih Jenis Shalat:</label>
+                    <select id="shalat-select">
+                        <option value="subuh">Subuh (2 Rakaat)</option>
+                        <option value="dhuhur" selected>Dhuhur (4 Rakaat)</option>
+                        <option value="ashar">Ashar (4 Rakaat)</option>
+                        <option value="maghrib">Maghrib (3 Rakaat)</option>
+                        <option value="isya">Isya (4 Rakaat)</option>
+                        <option value="dhuha">Dhuha (Sunnah - 2 Rakaat)</option>
+                        <option value="tahajjud">Tahajjud (Sunnah - 2 Rakaat)</option>
+                    </select>
+                </div>
+                <button id="btn-start" class="btn btn-primary">▶️ Mulai Deteksi</button>
+                <button id="btn-stop" class="btn btn-danger hidden">⏹️ Selesai / Reset</button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span class="stat-label">Target Rakaat</span>
+                    <span id="target-rakaat-val" class="stat-value">4</span>
+                </div>
+                <div class="stat-box accent">
+                    <span class="stat-label">Rakaat Terdeteksi</span>
+                    <span id="current-rakaat-val" class="stat-value">0</span>
+                </div>
+            </div>
+
+            <div class="monitor-card">
+                <h3>🔄 Status Gerakan Real-time</h3>
+                <div id="movement-state" class="badge-state state-idle">IDLE (SIAP)</div>
+                <div class="tumakninah-meter">
+                    <div class="meter-label">
+                        <span>Indikator Tumakninah</span>
+                        <span id="tumakninah-timer">0.0s</span>
+                    </div>
+                    <div class="meter-bar">
+                        <div id="meter-fill" class="meter-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feedback-card">
+                <h3>📢 Panduan & Koreksi Instan</h3>
+                <div id="live-feedback" class="feedback-box waiting">
+                    Menunggu kamera aktif... Silakan posisikan seluruh tubuh tegak berdiri menghadap kamera (jarak 2-3 meter).
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="video-wrapper">
+                <video id="webcam" autoplay playsinline muted></video>
+                <canvas id="output_canvas"></canvas>
+                
+                <div class="video-overlay-top">
+                    <div id="overlay-pose" class="overlay-badge">Mempersiapkan...</div>
+                    <div id="overlay-score" class="overlay-badge score">Akurasi Pose: 0%</div>
+                </div>
+
+                <div id="loading-container" class="loading-screen hidden">
+                    <div class="spinner"></div>
+                    <p>Mengunduh & Menginisialisasi AI Model Google MediaPipe...</p>
+                </div>
+            </div>
+
+            <div id="report-modal" class="modal hidden">
+                <div class="modal-content">
+                    <h2>📊 Rapor Kualitas Shalat Anda</h2>
+                    <div class="report-summary">
+                        <p><strong>Jenis Shalat:</strong> <span id="rep-jenis"></span></p>
+                        <p><strong>Total Rakaat:</strong> <span id="rep-rakaat"></span></p>
+                        <p><strong>Tingkat Akurasi:</strong> <span id="rep-akurasi"></span></p>
+                        <p><strong>Evaluasi Gerakan:</strong></p>
+                        <ul id="rep-catatan">
+                            </ul>
+                    </div>
+                    <button id="btn-close-report" class="btn btn-secondary">Tutup & Mulai Sesi Baru</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
