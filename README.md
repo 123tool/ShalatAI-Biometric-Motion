@@ -4,7 +4,7 @@ Aplikasi berbasis web mutakhir (*Advanced Web-Based AI Application*) yang memanf
 
 ---
 
-## 🚀 Fitur
+## Fitur
 
 *   **Real-time Biometric Core:** Memanfaatkan integrasi *Google MediaPipe Pose Engine* via CDN untuk membaca dan melacak 33 titik koordinat rangka tubuh manusia ($XYZ$) secara instan dan presisi.
 *   **Logika Sunnah & Trigonometri Presisi:** Menghitung sudut lengkung punggung (*hip angle*) dan kelurusan lutut (*knee angle*) menggunakan perhitungan vektor matematika hukum kosinus secara langsung.
